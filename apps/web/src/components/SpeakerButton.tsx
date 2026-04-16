@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "motion/react";
 import { useSpeech } from "@/hooks/useSpeech";
 import { useI18n } from "@/i18n";
@@ -68,11 +69,55 @@ export function SpeakerButton({
 }
 
 /**
+ * Floating tooltip rendered via portal so it escapes overflow:hidden parents
+ */
+function FloatingTooltip({
+  text,
+  anchorRef,
+  visible,
+}: {
+  text: string;
+  anchorRef: React.RefObject<HTMLElement | null>;
+  visible: boolean;
+}) {
+  const [pos, setPos] = useState({ top: 0, left: 0 });
+
+  useEffect(() => {
+    if (visible && anchorRef.current) {
+      const rect = anchorRef.current.getBoundingClientRect();
+      setPos({
+        top: rect.top - 8,
+        left: rect.left + rect.width / 2,
+      });
+    }
+  }, [visible, anchorRef]);
+
+  return createPortal(
+    <AnimatePresence>
+      {visible && (
+        <motion.div
+          initial={{ opacity: 0, y: 5 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 5 }}
+          style={{ top: pos.top, left: pos.left }}
+          className="fixed -translate-x-1/2 -translate-y-full px-3 py-1.5 rounded-lg bg-ink-800 border border-ink-700/40 text-xs text-ink-200 whitespace-nowrap z-[9999] shadow-xl pointer-events-none"
+        >
+          {text}
+          <span className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-ink-800" />
+        </motion.div>
+      )}
+    </AnimatePresence>,
+    document.body
+  );
+}
+
+/**
  * ElevenLabs native pronunciation button — "Coming Soon"
  */
 export function NativeSpeakerButton({ size = "md" }: { size?: "sm" | "md" }) {
   const [showTooltip, setShowTooltip] = useState(false);
   const { locale } = useI18n();
+  const btnRef = useRef<HTMLButtonElement>(null);
   const dims = size === "sm" ? "w-7 h-7" : "w-9 h-9";
   const iconSize = size === "sm" ? 14 : 18;
 
@@ -83,8 +128,9 @@ export function NativeSpeakerButton({ size = "md" }: { size?: "sm" | "md" }) {
       : "Native pronunciation via ElevenLabs — coming soon!";
 
   return (
-    <div className="relative">
+    <>
       <motion.button
+        ref={btnRef}
         onMouseEnter={() => setShowTooltip(true)}
         onMouseLeave={() => setShowTooltip(false)}
         onClick={(e) => {
@@ -117,19 +163,11 @@ export function NativeSpeakerButton({ size = "md" }: { size?: "sm" | "md" }) {
         </span>
       </motion.button>
 
-      <AnimatePresence>
-        {showTooltip && (
-          <motion.div
-            initial={{ opacity: 0, y: 5 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 5 }}
-            className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-1.5 rounded-lg bg-ink-800 border border-ink-700/40 text-xs text-ink-200 whitespace-nowrap z-50 shadow-lg"
-          >
-            {tooltipText}
-            <span className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-ink-800" />
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
+      <FloatingTooltip
+        text={tooltipText}
+        anchorRef={btnRef}
+        visible={showTooltip}
+      />
+    </>
   );
 }

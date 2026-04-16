@@ -494,14 +494,32 @@ export function LessonPage() {
           </motion.div>
         </AnimatePresence>
 
-        {/* Next button */}
+        {/* Navigation buttons */}
         {(step.type !== "quiz" || quizScore !== null) && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="mt-8 flex justify-end"
+            className="mt-8 flex items-center justify-between"
           >
+            {/* Back step button */}
+            {currentStep > 0 ? (
+              <motion.button
+                onClick={() => setCurrentStep((s) => s - 1)}
+                className="px-6 py-3.5 rounded-xl font-medium flex items-center gap-2 border border-ink-700/40 text-ink-300 hover:text-white hover:border-ink-600 transition-colors"
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
+                  <path d="M19 12H5M12 5l-7 7 7 7" />
+                </svg>
+                {t.lesson.back}
+              </motion.button>
+            ) : (
+              <div />
+            )}
+
+            {/* Next / Complete button */}
             <motion.button
               onClick={handleNext}
               className={`px-8 py-3.5 rounded-xl font-semibold flex items-center gap-2 ${
