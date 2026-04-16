@@ -216,6 +216,7 @@ export const hr: Translations = {
     keepPracticing: "Nastavi vježbati!",
     correct: "točno",
     noExample: "Primjer nije dostupan",
+    radicalTooltip: "Radikal je građevni blok kineskih znakova. Daje naznaku značenja ili kategorije znaka. Na primjer, 氵(voda) se pojavljuje u rijeka 河, jezero 湖 i ocean 海.",
   },
 
   // Review

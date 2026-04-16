@@ -1,4 +1,5 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef } from "react";
+import { createPortal } from "react-dom";
 import { useParams, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "motion/react";
 import { useLevel1Lessons } from "@/data/useLevel1";
@@ -13,6 +14,62 @@ import {
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { SpeakerButton, NativeSpeakerButton } from "@/components/SpeakerButton";
 import { ToneContour } from "@/components/ToneContour";
+
+/* ---- Radical Label with tooltip ---- */
+function RadicalLabel({ radical }: { radical: string }) {
+  const { t } = useI18n();
+  const [show, setShow] = useState(false);
+  const ref = useRef<HTMLSpanElement>(null);
+  const [pos, setPos] = useState({ top: 0, left: 0 });
+
+  function openTooltip(e: React.MouseEvent | React.TouchEvent) {
+    e.stopPropagation();
+    if (ref.current) {
+      const rect = ref.current.getBoundingClientRect();
+      setPos({ top: rect.top - 8, left: rect.left + rect.width / 2 });
+    }
+    setShow(true);
+  }
+
+  return (
+    <>
+      <p className="text-xs text-ink-500 mt-2 flex items-center gap-1.5">
+        <span
+          ref={ref}
+          onClick={openTooltip}
+          onMouseEnter={openTooltip}
+          onMouseLeave={() => setShow(false)}
+          className="inline-flex items-center gap-1 cursor-help border-b border-dashed border-ink-600 hover:text-ink-300 transition-colors"
+        >
+          {t.lesson.radical}
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className="opacity-50">
+            <circle cx="12" cy="12" r="10" />
+            <path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3" />
+            <path d="M12 17h.01" />
+          </svg>
+        </span>
+        : <span className="font-chinese text-ink-300">{radical}</span>
+      </p>
+      {createPortal(
+        <AnimatePresence>
+          {show && (
+            <motion.div
+              initial={{ opacity: 0, y: 5 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 5 }}
+              style={{ top: pos.top, left: Math.min(pos.left, window.innerWidth - 170) }}
+              className="fixed -translate-y-full max-w-[300px] px-4 py-3 rounded-xl bg-ink-800 border border-ink-700/40 text-xs text-ink-200 leading-relaxed z-[9999] shadow-xl pointer-events-none"
+            >
+              {t.lesson.radicalTooltip}
+              <span className="absolute top-full left-6 border-4 border-transparent border-t-ink-800" />
+            </motion.div>
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
+    </>
+  );
+}
 
 /* ---- Vocab Card ---- */
 function VocabCard({ item, index }: { item: VocabItem; index: number }) {
@@ -67,9 +124,7 @@ function VocabCard({ item, index }: { item: VocabItem; index: number }) {
             >
               <p className="text-sm text-ink-200">{item.meaning}</p>
               {item.radical && (
-                <p className="text-xs text-ink-500 mt-2">
-                  {t.lesson.radical}: <span className="font-chinese text-ink-300">{item.radical}</span>
-                </p>
+                <RadicalLabel radical={item.radical} />
               )}
               <p className="text-[10px] text-ink-600 mt-2">{t.lesson.tapForExample}</p>
             </motion.div>
