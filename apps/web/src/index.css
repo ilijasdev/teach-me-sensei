@@ -1,0 +1,99 @@
+@import "tailwindcss";
+
+@theme {
+  /* Chinese-inspired color palette */
+  --color-emperor-50: #fef7f0;
+  --color-emperor-100: #fdebd5;
+  --color-emperor-200: #fad4aa;
+  --color-emperor-300: #f6b574;
+  --color-emperor-400: #f18b3c;
+  --color-emperor-500: #ee7216;
+  --color-emperor-600: #df580c;
+  --color-emperor-700: #b9410c;
+  --color-emperor-800: #933512;
+  --color-emperor-900: #772d12;
+
+  /* Imperial red */
+  --color-cinnabar-50: #fff1f0;
+  --color-cinnabar-100: #ffe0dd;
+  --color-cinnabar-200: #ffc6c1;
+  --color-cinnabar-300: #ff9f96;
+  --color-cinnabar-400: #ff6759;
+  --color-cinnabar-500: #ff3424;
+  --color-cinnabar-600: #ed1505;
+  --color-cinnabar-700: #c80e02;
+  --color-cinnabar-800: #a51108;
+  --color-cinnabar-900: #88150f;
+
+  /* Imperial gold */
+  --color-imperial-50: #fffbeb;
+  --color-imperial-100: #fff3c6;
+  --color-imperial-200: #ffe588;
+  --color-imperial-300: #ffd24a;
+  --color-imperial-400: #ffbf20;
+  --color-imperial-500: #f99b07;
+  --color-imperial-600: #dd7302;
+  --color-imperial-700: #b75006;
+  --color-imperial-800: #943d0c;
+  --color-imperial-900: #7a320d;
+
+  /* Jade green */
+  --color-jade-50: #f0fdf6;
+  --color-jade-100: #dcfce9;
+  --color-jade-200: #bbf7d4;
+  --color-jade-300: #86efb2;
+  --color-jade-400: #4ade87;
+  --color-jade-500: #22c563;
+  --color-jade-600: #16a34d;
+  --color-jade-700: #15803f;
+  --color-jade-800: #166534;
+  --color-jade-900: #14532b;
+
+  /* Ink black */
+  --color-ink-50: #f6f6f7;
+  --color-ink-100: #e2e3e5;
+  --color-ink-200: #c4c6cb;
+  --color-ink-300: #9fa2a9;
+  --color-ink-400: #7a7e87;
+  --color-ink-500: #5f636d;
+  --color-ink-600: #4b4e56;
+  --color-ink-700: #3e4047;
+  --color-ink-800: #2d2f34;
+  --color-ink-900: #1a1b1f;
+  --color-ink-950: #0d0e10;
+
+  /* Typography */
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-chinese: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-ink-950);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-ink-700);
+  border-radius: 3px;
+}
+
+/* Selection color */
+::selection {
+  background: rgba(255, 52, 36, 0.3);
+  color: white;
+}
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-ink-950);
+  color: var(--color-ink-100);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

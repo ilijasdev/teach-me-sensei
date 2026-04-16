@@ -1,0 +1,19 @@
+{
+  "name": "kina",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Chinese language learning platform - AI tutor + native speaker marketplace",
+  "scripts": {
+    "dev": "turbo dev",
+    "build": "turbo build",
+    "lint": "turbo lint",
+    "dev:web": "turbo dev --filter=@kina/web",
+    "dev:api": "turbo dev --filter=@kina/api",
+    "build:web": "turbo build --filter=@kina/web",
+    "build:api": "turbo build --filter=@kina/api"
+  },
+  "packageManager": "pnpm@9.15.4",
+  "devDependencies": {
+    "turbo": "^2.9.6"
+  }
+}
