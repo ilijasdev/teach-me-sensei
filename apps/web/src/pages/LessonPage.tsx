@@ -11,6 +11,8 @@ import {
   SparkleIcon,
 } from "@/icons";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+import { SpeakerButton, NativeSpeakerButton } from "@/components/SpeakerButton";
+import { ToneContour } from "@/components/ToneContour";
 
 /* ---- Vocab Card ---- */
 function VocabCard({ item, index }: { item: VocabItem; index: number }) {
@@ -30,18 +32,29 @@ function VocabCard({ item, index }: { item: VocabItem; index: number }) {
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
       >
+        {/* Header row: character + audio + strokes */}
         <div className="flex items-start justify-between mb-3">
-          <div>
+          <div className="flex items-center gap-3">
             <span className="text-3xl font-chinese font-bold text-white">
               {item.simplified}
             </span>
-            <div className="text-sm text-cinnabar-400 mt-1">{item.pinyin}</div>
+            {/* Audio buttons */}
+            <div className="flex items-center gap-1.5">
+              <SpeakerButton text={item.simplified} size="sm" />
+              <NativeSpeakerButton size="sm" />
+            </div>
           </div>
           {item.strokes && (
             <span className="text-[10px] text-ink-500 px-2 py-0.5 rounded-full bg-ink-800/60 border border-ink-700/30">
               {item.strokes} {t.lesson.strokes}
             </span>
           )}
+        </div>
+
+        {/* Pinyin + tone contour */}
+        <div className="flex items-center gap-2 mb-2">
+          <span className="text-sm text-cinnabar-400">{item.pinyin}</span>
+          <ToneContour pinyin={item.pinyin} size={28} />
         </div>
 
         <AnimatePresence mode="wait">
@@ -69,7 +82,10 @@ function VocabCard({ item, index }: { item: VocabItem; index: number }) {
             >
               {item.example ? (
                 <div className="space-y-1">
-                  <p className="font-chinese text-white">{item.example.chinese}</p>
+                  <div className="flex items-center gap-2">
+                    <p className="font-chinese text-white">{item.example.chinese}</p>
+                    <SpeakerButton text={item.example.chinese} size="sm" />
+                  </div>
                   <p className="text-xs text-cinnabar-400">{item.example.pinyin}</p>
                   <p className="text-xs text-ink-300">{item.example.meaning}</p>
                 </div>
@@ -310,8 +326,14 @@ function StepContent({
                 transition={{ delay: i * 0.1 }}
                 className="p-3 rounded-lg bg-ink-800/40 border border-ink-700/20"
               >
-                <p className="font-chinese text-white">{ex.chinese}</p>
-                <p className="text-xs text-cinnabar-400 mt-0.5">{ex.pinyin}</p>
+                <div className="flex items-center gap-2">
+                  <p className="font-chinese text-white">{ex.chinese}</p>
+                  <SpeakerButton text={ex.chinese} size="sm" />
+                </div>
+                <div className="flex items-center gap-1.5 mt-0.5">
+                  <p className="text-xs text-cinnabar-400">{ex.pinyin}</p>
+                  <ToneContour pinyin={ex.pinyin} size={22} />
+                </div>
                 <p className="text-xs text-ink-400">{ex.meaning}</p>
               </motion.div>
             ))}

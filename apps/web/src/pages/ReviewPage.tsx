@@ -5,6 +5,8 @@ import { useProgress, type SRSCard } from "@/context/ProgressContext";
 import { useI18n } from "@/i18n";
 import { ArrowRightIcon, CheckCircleIcon, SparkleIcon } from "@/icons";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+import { SpeakerButton, NativeSpeakerButton } from "@/components/SpeakerButton";
+import { ToneContour } from "@/components/ToneContour";
 
 function FlashCard({
   card,
@@ -26,11 +28,18 @@ function FlashCard({
   return (
     <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95, x: -100 }} transition={{ duration: 0.3 }} className="max-w-lg mx-auto">
       <motion.div onClick={() => !revealed && setRevealed(true)} className="p-8 rounded-2xl border border-ink-700/30 bg-ink-900/60 text-center cursor-pointer min-h-[200px] flex flex-col items-center justify-center" whileHover={!revealed ? { scale: 1.02 } : {}} whileTap={!revealed ? { scale: 0.98 } : {}}>
-        <span className="text-5xl font-chinese font-bold text-white mb-4">{card.simplified}</span>
+        <span className="text-5xl font-chinese font-bold text-white mb-2">{card.simplified}</span>
+        <div className="flex items-center justify-center gap-2 mb-3">
+          <SpeakerButton text={card.simplified} size="md" />
+          <NativeSpeakerButton size="md" />
+        </div>
         <AnimatePresence>
           {revealed ? (
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-2">
-              <p className="text-lg text-cinnabar-400">{card.pinyin}</p>
+              <div className="flex items-center justify-center gap-2">
+                <p className="text-lg text-cinnabar-400">{card.pinyin}</p>
+                <ToneContour pinyin={card.pinyin} size={28} />
+              </div>
               <p className="text-ink-200">{card.meaning}</p>
               <p className="text-xs text-ink-500 mt-2">{t.review.reviewNum} #{card.reviewCount + 1} · {t.review.nextIn} {card.interval} {t.review.days}</p>
             </motion.div>
