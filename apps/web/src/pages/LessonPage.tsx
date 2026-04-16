@@ -118,22 +118,25 @@ function QuizComponent({
   const q = questions[current];
   if (!q) return null;
 
+  const isCorrectAnswer = selected !== null && selected === q.correctIndex;
+
   function handleSelect(idx: number) {
     if (selected !== null || !q) return;
-    const correctIdx = q.correctIndex;
     setSelected(idx);
-    if (idx === correctIdx) setCorrect((c) => c + 1);
+    if (idx === q.correctIndex) {
+      setCorrect((c) => c + 1);
+    }
+  }
 
-    setTimeout(() => {
-      if (current < questions.length - 1) {
-        setCurrent((c) => c + 1);
-        setSelected(null);
-      } else {
-        const finalCorrect = idx === correctIdx ? correct + 1 : correct;
-        setShowResult(true);
-        onComplete(finalCorrect / questions.length);
-      }
-    }, 1500);
+  function handleNextQuestion() {
+    if (current < questions.length - 1) {
+      setCurrent((c) => c + 1);
+      setSelected(null);
+    } else {
+      const finalCorrect = correct;
+      setShowResult(true);
+      onComplete(finalCorrect / questions.length);
+    }
   }
 
   if (showResult) {
@@ -235,16 +238,58 @@ function QuizComponent({
           })}
         </div>
 
-        {/* Explanation */}
+        {/* Explanation + Next button */}
         <AnimatePresence>
-          {selected !== null && q.explanation && (
+          {selected !== null && (
             <motion.div
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
-              className="mt-4 p-4 rounded-xl bg-ink-800/40 border border-ink-700/20"
+              className="mt-4 space-y-3"
             >
-              <p className="text-sm text-ink-300">{q.explanation}</p>
+              {/* Result indicator */}
+              <div
+                className={`p-4 rounded-xl border ${
+                  isCorrectAnswer
+                    ? "bg-jade-500/5 border-jade-500/20"
+                    : "bg-cinnabar-500/5 border-cinnabar-500/20"
+                }`}
+              >
+                <div className="flex items-center gap-2 mb-1">
+                  <span
+                    className={`text-sm font-semibold ${
+                      isCorrectAnswer ? "text-jade-400" : "text-cinnabar-400"
+                    }`}
+                  >
+                    {isCorrectAnswer
+                      ? (t.lesson.greatJob)
+                      : `✗ ${q.options[q.correctIndex]}`}
+                  </span>
+                </div>
+                {q.explanation && (
+                  <p className="text-sm text-ink-300">{q.explanation}</p>
+                )}
+              </div>
+
+              {/* Next question button */}
+              <motion.button
+                onClick={handleNextQuestion}
+                initial={{ opacity: 0, y: 5 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+                className={`w-full py-3.5 rounded-xl font-semibold flex items-center justify-center gap-2 ${
+                  isCorrectAnswer
+                    ? "bg-gradient-to-r from-jade-600 to-jade-500 text-white"
+                    : "bg-gradient-to-r from-cinnabar-600 to-cinnabar-500 text-white"
+                }`}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                {current < questions.length - 1
+                  ? t.lesson.continue
+                  : t.lesson.completeLesson}
+                <ArrowRightIcon size={16} />
+              </motion.button>
             </motion.div>
           )}
         </AnimatePresence>
