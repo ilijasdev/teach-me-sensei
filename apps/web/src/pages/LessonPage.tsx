@@ -6,6 +6,7 @@ import { useLevel1Lessons } from "@/data/useLevel1";
 import { useProgress } from "@/context/ProgressContext";
 import { useI18n } from "@/i18n";
 import type { LessonStep, QuizQuestion, VocabItem } from "@/data/level1";
+import { getRadicalInfo } from "@/data/radicals";
 import {
   ArrowRightIcon,
   CheckCircleIcon,
@@ -15,12 +16,13 @@ import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { SpeakerButton, NativeSpeakerButton } from "@/components/SpeakerButton";
 import { ToneContour } from "@/components/ToneContour";
 
-/* ---- Radical Label with tooltip ---- */
+/* ---- Radical Label with unique tooltip per radical ---- */
 function RadicalLabel({ radical }: { radical: string }) {
-  const { t } = useI18n();
+  const { t, locale } = useI18n();
   const [show, setShow] = useState(false);
   const ref = useRef<HTMLSpanElement>(null);
   const [pos, setPos] = useState({ top: 0, left: 0 });
+  const info = getRadicalInfo(radical, locale);
 
   function openTooltip(e: React.MouseEvent | React.TouchEvent) {
     e.stopPropagation();
@@ -49,6 +51,7 @@ function RadicalLabel({ radical }: { radical: string }) {
           </svg>
         </span>
         : <span className="font-chinese text-ink-300">{radical}</span>
+        <span className="text-ink-600">({info.label})</span>
       </p>
       {createPortal(
         <AnimatePresence>
@@ -57,11 +60,11 @@ function RadicalLabel({ radical }: { radical: string }) {
               initial={{ opacity: 0, y: 5 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 5 }}
-              style={{ top: pos.top, left: Math.min(pos.left, window.innerWidth - 170) }}
-              className="fixed -translate-y-full max-w-[300px] px-4 py-3 rounded-xl bg-ink-800 border border-ink-700/40 text-xs text-ink-200 leading-relaxed z-[9999] shadow-xl pointer-events-none"
+              style={{ top: pos.top, left: Math.min(Math.max(pos.left, 160), window.innerWidth - 160) }}
+              className="fixed -translate-x-1/2 -translate-y-full max-w-[320px] px-4 py-3 rounded-xl bg-ink-800 border border-ink-700/40 text-xs text-ink-200 leading-relaxed z-[9999] shadow-xl pointer-events-none"
             >
-              {t.lesson.radicalTooltip}
-              <span className="absolute top-full left-6 border-4 border-transparent border-t-ink-800" />
+              {info.tooltip}
+              <span className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-ink-800" />
             </motion.div>
           )}
         </AnimatePresence>,
