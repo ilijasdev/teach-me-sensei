@@ -6,7 +6,14 @@ import { ArrowRightIcon, GlobeIcon } from "@/icons";
 export function SpeakersSection() {
   const titleRef = useRef<HTMLDivElement>(null);
   const titleInView = useInView(titleRef, { once: true, margin: "-50px" });
-  const { t } = useI18n();
+  const { t, locale } = useI18n();
+
+  const langNames: Record<string, Record<string, string>> = {
+    Mandarin: { en: "Mandarin", hr: "Mandarinski" },
+    English: { en: "English", hr: "Engleski" },
+    Japanese: { en: "Japanese", hr: "Japanski" },
+  };
+  const tl = (lang: string) => langNames[lang]?.[locale] ?? lang;
 
   const speakers = [
     { name: "Wei Lin", chinese: "魏琳", avatar: "WL", rating: 4.9, sessions: 342, languages: ["Mandarin", "English"], tKey: "wei" as const },
@@ -43,7 +50,7 @@ export function SpeakersSection() {
                     <span className="text-sm font-medium text-white">{speaker.rating}</span>
                   </div>
                   <span className="text-xs text-ink-400">{speaker.sessions} {t.speakers.sessions}</span>
-                  <div className="flex items-center gap-1 ml-auto"><GlobeIcon size={12} className="text-ink-400" /><span className="text-xs text-ink-400">{speaker.languages.join(", ")}</span></div>
+                  <div className="flex items-center gap-1 ml-auto"><GlobeIcon size={12} className="text-ink-400" /><span className="text-xs text-ink-400">{speaker.languages.map(tl).join(", ")}</span></div>
                 </div>
                 <motion.button className="w-full py-3 rounded-xl text-sm font-medium border border-ink-600/50 text-ink-200 hover:text-white hover:border-cinnabar-500/40 hover:bg-cinnabar-500/5 transition-all flex items-center justify-center gap-2" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                   {t.speakers.bookSession}<ArrowRightIcon size={14} />

@@ -163,7 +163,7 @@ function VocabCard({ item, index }: { item: VocabItem; index: number }) {
 /* ---- Tone Listen Player for quiz ---- */
 function ToneListenPlayer({ text, revealed }: { text: string; revealed: boolean }) {
   const { speak, speaking } = useSpeech();
-  const { locale } = useI18n();
+  const { t } = useI18n();
 
   return (
     <motion.div
@@ -202,17 +202,13 @@ function ToneListenPlayer({ text, revealed }: { text: string; revealed: boolean 
           </svg>
         )}
         <span className="text-sm font-medium">
-          {speaking
-            ? (locale === "hr" ? "Slušam..." : "Listening...")
-            : (locale === "hr" ? "Pusti audio" : "Play audio")}
+          {speaking ? t.lesson.listening : t.lesson.playAudio}
         </span>
       </motion.button>
 
       {/* Hint text */}
-      <p className="text-[11px] text-ink-500">
-        {locale === "hr"
-          ? "Slušaj pažljivo ton — raste, pada, ili ostaje ravan?"
-          : "Listen carefully to the tone — does it rise, fall, or stay flat?"}
+      <p className="text-[11px] text-ink-500 px-4 text-center">
+        {t.lesson.toneHint}
       </p>
 
       {/* Show pinyin after answering */}
@@ -563,7 +559,7 @@ export function LessonPage() {
   if (!lesson) {
     return (
       <div className="min-h-screen bg-ink-950 flex items-center justify-center">
-        <p className="text-ink-400">Lesson not found</p>
+        <p className="text-ink-400">{t.lesson.notFound}</p>
       </div>
     );
   }

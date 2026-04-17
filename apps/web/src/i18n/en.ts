@@ -215,6 +215,10 @@ export const en = {
     correct: "correct",
     noExample: "No example available",
     radicalTooltip: "A radical is a building block of Chinese characters. It hints at the meaning or category of the character. For example, 氵(water) appears in river 河, lake 湖, and ocean 海.",
+    notFound: "Lesson not found",
+    listening: "Listening...",
+    playAudio: "Play audio",
+    toneHint: "Listen carefully to the tone — does it rise, fall, or stay flat?",
   },
 
   // Review
