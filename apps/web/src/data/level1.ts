@@ -10,9 +10,11 @@ export interface VocabItem {
 }
 
 export interface QuizQuestion {
-  type: "multiple-choice" | "tone-identify" | "match" | "fill-blank";
+  type: "multiple-choice" | "tone-identify" | "tone-listen" | "match" | "fill-blank";
   question: string;
   questionChinese?: string;
+  /** Chinese text to speak via TTS for tone-listen questions */
+  listenText?: string;
   options: string[];
   correctIndex: number;
   explanation?: string;
@@ -84,12 +86,18 @@ export const level1Lessons: Lesson[] = [
       },
       {
         type: "quiz",
-        title: "Tone Check",
+        title: "Tone Check — Listen & Identify",
         quiz: [
-          { type: "multiple-choice", question: "Which tone is used for 妈 (mother)?", options: ["1st tone (high flat)", "2nd tone (rising)", "3rd tone (low dip)", "4th tone (falling)"], correctIndex: 0, explanation: "妈 (mā) uses the 1st tone — a high, flat, sustained pitch." },
-          { type: "tone-identify", question: "What does 马 (mǎ) mean?", options: ["mother", "hemp", "horse", "to scold"], correctIndex: 2, explanation: "马 (mǎ) with the 3rd tone means horse." },
-          { type: "multiple-choice", question: "How is 你好 actually pronounced?", options: ["nǐ hǎo", "ní hǎo", "ní háo", "nì hào"], correctIndex: 1, explanation: "Due to tone sandhi, two consecutive 3rd tones change the first to a 2nd tone." },
-          { type: "multiple-choice", question: "What is the neutral tone?", options: ["A very loud tone", "A light, unstressed syllable", "The same as 1st tone", "A whispered tone"], correctIndex: 1, explanation: "The neutral tone (轻声) is light and short, without a specific pitch contour." },
+          { type: "tone-listen", question: "Listen to this word. Which tone do you hear?", listenText: "妈", options: ["1st tone (high flat ‾)", "2nd tone (rising ／)", "3rd tone (low dip ˅)", "4th tone (falling ＼)"], correctIndex: 0, explanation: "妈 (mā) — 1st tone. A high, flat, sustained pitch. Like holding a musical note." },
+          { type: "tone-listen", question: "Listen carefully. Which tone is this?", listenText: "麻", options: ["1st tone (high flat ‾)", "2nd tone (rising ／)", "3rd tone (low dip ˅)", "4th tone (falling ＼)"], correctIndex: 1, explanation: "麻 (má) — 2nd tone. The pitch rises from middle to high, like asking 'huh?' in English." },
+          { type: "tone-listen", question: "Play the audio. What tone do you hear?", listenText: "马", options: ["1st tone (high flat ‾)", "2nd tone (rising ／)", "3rd tone (low dip ˅)", "4th tone (falling ＼)"], correctIndex: 2, explanation: "马 (mǎ) — 3rd tone. The pitch dips low then rises slightly. In natural speech it's often just a low tone." },
+          { type: "tone-listen", question: "Listen and identify the tone.", listenText: "骂", options: ["1st tone (high flat ‾)", "2nd tone (rising ／)", "3rd tone (low dip ˅)", "4th tone (falling ＼)"], correctIndex: 3, explanation: "骂 (mà) — 4th tone. A sharp falling pitch, like saying 'No!' firmly." },
+          { type: "tone-listen", question: "This is a new word you haven't seen. What tone?", listenText: "书", options: ["1st tone (high flat ‾)", "2nd tone (rising ／)", "3rd tone (low dip ˅)", "4th tone (falling ＼)"], correctIndex: 0, explanation: "书 (shū) — 1st tone. High and flat. This word means 'book' — you'll learn it soon!" },
+          { type: "tone-listen", question: "Listen to this syllable. Which tone?", listenText: "人", options: ["1st tone (high flat ‾)", "2nd tone (rising ／)", "3rd tone (low dip ˅)", "4th tone (falling ＼)"], correctIndex: 1, explanation: "人 (rén) — 2nd tone. Rising pitch. This means 'person' — a very common word." },
+          { type: "tone-listen", question: "New word! Play and identify the tone.", listenText: "狗", options: ["1st tone (high flat ‾)", "2nd tone (rising ／)", "3rd tone (low dip ˅)", "4th tone (falling ＼)"], correctIndex: 2, explanation: "狗 (gǒu) — 3rd tone. Low dipping pitch. This means 'dog'." },
+          { type: "tone-listen", question: "What tone is this word?", listenText: "大", options: ["1st tone (high flat ‾)", "2nd tone (rising ／)", "3rd tone (low dip ˅)", "4th tone (falling ＼)"], correctIndex: 3, explanation: "大 (dà) — 4th tone. Sharp fall from high to low. This means 'big'." },
+          { type: "multiple-choice", question: "How is 你好 actually pronounced? (Two 3rd tones in a row)", options: ["nǐ hǎo (both 3rd tone)", "ní hǎo (2nd + 3rd tone)", "ní háo (both 2nd tone)", "nì hào (both 4th tone)"], correctIndex: 1, explanation: "Tone sandhi rule: two consecutive 3rd tones → the first changes to 2nd tone. So 你好 = ní hǎo." },
+          { type: "multiple-choice", question: "What is the neutral tone?", options: ["A very loud tone", "A light, unstressed syllable with no fixed pitch", "The same as 1st tone", "A whispered tone"], correctIndex: 1, explanation: "The neutral tone (轻声) is light and short, with no specific pitch contour. Example: 吗 (ma) in 好吗？" },
         ],
       },
       {

@@ -45,12 +45,18 @@ export const level1LessonsHr: Lesson[] = [
       },
       {
         type: "quiz",
-        title: "Provjera tonova",
+        title: "Provjera tonova — Slušaj i prepoznaj",
         quiz: [
-          { type: "multiple-choice", question: "Koji ton se koristi za 妈 (majka)?", options: ["1. ton (visoki ravni)", "2. ton (uzlazni)", "3. ton (niski)", "4. ton (silazni)"], correctIndex: 0, explanation: "妈 (mā) koristi 1. ton — visoki, ravni, neprekidni ton." },
-          { type: "tone-identify", question: "Što znači 马 (mǎ)?", options: ["majka", "konoplja", "konj", "grditi"], correctIndex: 2, explanation: "马 (mǎ) s 3. tonom znači konj." },
-          { type: "multiple-choice", question: "Kako se zapravo izgovara 你好?", options: ["nǐ hǎo", "ní hǎo", "ní háo", "nì hào"], correctIndex: 1, explanation: "Zbog tone sandhija, dva uzastopna 3. tona mijenjaju prvi u 2. ton." },
-          { type: "multiple-choice", question: "Što je neutralni ton?", options: ["Jako glasan ton", "Lagani, nenaglašeni slog", "Isto što i 1. ton", "Šapnuti ton"], correctIndex: 1, explanation: "Neutralni ton (轻声) je lagan i kratak, bez specifične tonske konture." },
+          { type: "tone-listen", question: "Poslušaj ovu riječ. Koji ton čuješ?", listenText: "妈", options: ["1. ton (visoki ravni ‾)", "2. ton (uzlazni ／)", "3. ton (niski ˅)", "4. ton (silazni ＼)"], correctIndex: 0, explanation: "妈 (mā) — 1. ton. Visoka, ravna, neprekidna visina. Kao da držiš muzičku notu." },
+          { type: "tone-listen", question: "Slušaj pažljivo. Koji je ovo ton?", listenText: "麻", options: ["1. ton (visoki ravni ‾)", "2. ton (uzlazni ／)", "3. ton (niski ˅)", "4. ton (silazni ＼)"], correctIndex: 1, explanation: "麻 (má) — 2. ton. Visina raste od sredine prema gore, kao kad pitaš 'ha?' na hrvatskom." },
+          { type: "tone-listen", question: "Pusti audio. Koji ton čuješ?", listenText: "马", options: ["1. ton (visoki ravni ‾)", "2. ton (uzlazni ／)", "3. ton (niski ˅)", "4. ton (silazni ＼)"], correctIndex: 2, explanation: "马 (mǎ) — 3. ton. Visina pada nisko pa se lagano diže. U prirodnom govoru često je samo nizak ton." },
+          { type: "tone-listen", question: "Poslušaj i prepoznaj ton.", listenText: "骂", options: ["1. ton (visoki ravni ‾)", "2. ton (uzlazni ／)", "3. ton (niski ˅)", "4. ton (silazni ＼)"], correctIndex: 3, explanation: "骂 (mà) — 4. ton. Oštar pad visine, kao kad odlučno kažeš 'Ne!'" },
+          { type: "tone-listen", question: "Ovo je nova riječ koju nisi vidio. Koji ton?", listenText: "书", options: ["1. ton (visoki ravni ‾)", "2. ton (uzlazni ／)", "3. ton (niski ˅)", "4. ton (silazni ＼)"], correctIndex: 0, explanation: "书 (shū) — 1. ton. Visok i ravan. Ova riječ znači 'knjiga' — naučit ćeš je uskoro!" },
+          { type: "tone-listen", question: "Poslušaj ovaj slog. Koji ton?", listenText: "人", options: ["1. ton (visoki ravni ‾)", "2. ton (uzlazni ／)", "3. ton (niski ˅)", "4. ton (silazni ＼)"], correctIndex: 1, explanation: "人 (rén) — 2. ton. Uzlazna visina. Ovo znači 'osoba' — jako česta riječ." },
+          { type: "tone-listen", question: "Nova riječ! Pusti i prepoznaj ton.", listenText: "狗", options: ["1. ton (visoki ravni ‾)", "2. ton (uzlazni ／)", "3. ton (niski ˅)", "4. ton (silazni ＼)"], correctIndex: 2, explanation: "狗 (gǒu) — 3. ton. Niska visina koja se spušta. Ovo znači 'pas'." },
+          { type: "tone-listen", question: "Koji ton ima ova riječ?", listenText: "大", options: ["1. ton (visoki ravni ‾)", "2. ton (uzlazni ／)", "3. ton (niski ˅)", "4. ton (silazni ＼)"], correctIndex: 3, explanation: "大 (dà) — 4. ton. Oštar pad s visoke na nisku. Ovo znači 'velik'." },
+          { type: "multiple-choice", question: "Kako se zapravo izgovara 你好? (Dva 3. tona zaredom)", options: ["nǐ hǎo (oba 3. ton)", "ní hǎo (2. + 3. ton)", "ní háo (oba 2. ton)", "nì hào (oba 4. ton)"], correctIndex: 1, explanation: "Pravilo tone sandhi: dva uzastopna 3. tona → prvi se mijenja u 2. ton. Dakle 你好 = ní hǎo." },
+          { type: "multiple-choice", question: "Što je neutralni ton?", options: ["Jako glasan ton", "Lagani, nenaglašeni slog bez fiksne visine", "Isto što i 1. ton", "Šapnuti ton"], correctIndex: 1, explanation: "Neutralni ton (轻声) je lagan i kratak, bez specifične tonske konture. Primjer: 吗 (ma) u 好吗？" },
         ],
       },
       {

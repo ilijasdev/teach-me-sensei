@@ -15,6 +15,7 @@ import {
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { SpeakerButton, NativeSpeakerButton } from "@/components/SpeakerButton";
 import { ToneContour } from "@/components/ToneContour";
+import { useSpeech } from "@/hooks/useSpeech";
 
 /* ---- Radical Label with unique tooltip per radical ---- */
 function RadicalLabel({ radical }: { radical: string }) {
@@ -159,6 +160,77 @@ function VocabCard({ item, index }: { item: VocabItem; index: number }) {
   );
 }
 
+/* ---- Tone Listen Player for quiz ---- */
+function ToneListenPlayer({ text, revealed }: { text: string; revealed: boolean }) {
+  const { speak, speaking } = useSpeech();
+  const { locale } = useI18n();
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="flex flex-col items-center gap-3 py-6 mb-4 rounded-2xl bg-ink-900/60 border border-ink-700/30"
+    >
+      {/* Chinese character — large */}
+      <span className="text-5xl font-chinese font-bold text-white">
+        {text}
+      </span>
+
+      {/* Play button */}
+      <motion.button
+        onClick={() => speak(text, 0.7)}
+        className="flex items-center gap-2.5 px-6 py-3 rounded-xl bg-cinnabar-500/15 border border-cinnabar-500/25 text-cinnabar-400 hover:bg-cinnabar-500/25 transition-colors"
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+      >
+        {speaking ? (
+          <motion.div className="flex items-center gap-[3px]">
+            {[0, 1, 2, 3].map((i) => (
+              <motion.span
+                key={i}
+                className="w-[3px] bg-cinnabar-400 rounded-full"
+                animate={{ height: [6, 20, 6] }}
+                transition={{ duration: 0.5, repeat: Infinity, delay: i * 0.12 }}
+              />
+            ))}
+          </motion.div>
+        ) : (
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M11 5L6 9H2v6h4l5 4V5z" />
+            <path d="M15.54 8.46a5 5 0 010 7.07" />
+            <path d="M19.07 4.93a10 10 0 010 14.14" />
+          </svg>
+        )}
+        <span className="text-sm font-medium">
+          {speaking
+            ? (locale === "hr" ? "Slušam..." : "Listening...")
+            : (locale === "hr" ? "Pusti audio" : "Play audio")}
+        </span>
+      </motion.button>
+
+      {/* Hint text */}
+      <p className="text-[11px] text-ink-500">
+        {locale === "hr"
+          ? "Slušaj pažljivo ton — raste, pada, ili ostaje ravan?"
+          : "Listen carefully to the tone — does it rise, fall, or stay flat?"}
+      </p>
+
+      {/* Show pinyin after answering */}
+      <AnimatePresence>
+        {revealed && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            className="flex items-center gap-2 mt-1"
+          >
+            <ToneContour pinyin={text} size={32} showLabel />
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
+  );
+}
+
 /* ---- Quiz Component ---- */
 function QuizComponent({
   questions,
@@ -254,7 +326,12 @@ function QuizComponent({
         <h3 className="text-lg font-semibold text-white mb-1">
           {t.lesson.question} {current + 1} {t.lesson.of} {questions.length}
         </h3>
-        <p className="text-ink-200 mb-6">{q.question}</p>
+        <p className="text-ink-200 mb-4">{q.question}</p>
+
+        {/* Tone listen player */}
+        {q.type === "tone-listen" && q.listenText && (
+          <ToneListenPlayer text={q.listenText} revealed={selected !== null} />
+        )}
 
         <div className="space-y-3">
           {q.options.map((opt, i) => {
