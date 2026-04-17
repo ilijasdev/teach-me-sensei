@@ -26,9 +26,9 @@ function FlashCard({
   ];
 
   return (
-    <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95, x: -100 }} transition={{ duration: 0.3 }} className="max-w-lg mx-auto">
-      <motion.div onClick={() => !revealed && setRevealed(true)} className="p-8 rounded-2xl border border-ink-700/30 bg-ink-900/60 text-center cursor-pointer min-h-[200px] flex flex-col items-center justify-center" whileHover={!revealed ? { scale: 1.02 } : {}} whileTap={!revealed ? { scale: 0.98 } : {}}>
-        <span className="text-5xl font-chinese font-bold text-white mb-2">{card.simplified}</span>
+    <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95, x: -100 }} transition={{ duration: 0.3 }} className="max-w-lg mx-auto px-1">
+      <motion.div onClick={() => !revealed && setRevealed(true)} className="p-6 sm:p-8 rounded-2xl border border-ink-700/30 bg-ink-900/60 text-center cursor-pointer min-h-[180px] sm:min-h-[200px] flex flex-col items-center justify-center" whileHover={!revealed ? { scale: 1.02 } : {}} whileTap={!revealed ? { scale: 0.98 } : {}}>
+        <span className="text-4xl sm:text-5xl font-chinese font-bold text-white mb-2">{card.simplified}</span>
         <div className="flex items-center justify-center gap-2 mb-3">
           <SpeakerButton text={card.simplified} size="md" />
           <NativeSpeakerButton size="md" />
@@ -50,11 +50,11 @@ function FlashCard({
       </motion.div>
       <AnimatePresence>
         {revealed && (
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mt-6 grid grid-cols-4 gap-3">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mt-4 sm:mt-6 grid grid-cols-4 gap-2 sm:gap-3">
             {ratings.map((r, i) => (
-              <motion.button key={r.label} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }} onClick={() => onRate(r.value)} className={`p-3 rounded-xl ${r.color} text-white text-center`} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <span className="text-sm font-semibold block">{r.label}</span>
-                <span className="text-[10px] opacity-70">{r.desc}</span>
+              <motion.button key={r.label} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }} onClick={() => onRate(r.value)} className={`p-2.5 sm:p-3 rounded-xl ${r.color} text-white text-center min-h-[56px] flex flex-col items-center justify-center`} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                <span className="text-xs sm:text-sm font-semibold block">{r.label}</span>
+                <span className="text-[9px] sm:text-[10px] opacity-70 leading-tight">{r.desc}</span>
               </motion.button>
             ))}
           </motion.div>
@@ -108,7 +108,7 @@ export function ReviewPage() {
   return (
     <div className="min-h-screen bg-ink-950">
       <motion.header initial={{ y: -60, opacity: 0 }} animate={{ y: 0, opacity: 1 }} className="sticky top-0 z-40 backdrop-blur-xl bg-ink-950/80 border-b border-ink-800/50">
-        <div className="max-w-3xl mx-auto px-6 h-14 flex items-center justify-between">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
           <motion.button onClick={() => navigate("/dashboard")} className="text-sm text-ink-400 hover:text-white transition-colors flex items-center gap-1.5" whileTap={{ scale: 0.95 }}>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"><path d="M19 12H5M12 5l-7 7 7 7" /></svg>
             {t.lesson.back}
@@ -117,12 +117,12 @@ export function ReviewPage() {
           <span className="text-xs text-ink-500">{currentIdx + 1} / {dueCards.length}</span>
         </div>
       </motion.header>
-      <div className="max-w-3xl mx-auto px-6 mt-4">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 mt-4">
         <div className="h-1.5 rounded-full bg-ink-800 overflow-hidden">
           <motion.div className="h-full rounded-full bg-gradient-to-r from-cinnabar-500 to-imperial-400" animate={{ width: `${((currentIdx + 1) / dueCards.length) * 100}%` }} transition={{ duration: 0.5 }} />
         </div>
       </div>
-      <main className="max-w-3xl mx-auto px-6 py-12">
+      <main className="max-w-3xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
         <AnimatePresence mode="wait">
           <FlashCard key={card.vocabId} card={card} onRate={handleRate} />
         </AnimatePresence>

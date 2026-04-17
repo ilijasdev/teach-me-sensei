@@ -89,7 +89,7 @@ function VocabCard({ item, index }: { item: VocabItem; index: number }) {
       className="cursor-pointer"
     >
       <motion.div
-        className="p-5 rounded-2xl border border-ink-700/30 bg-ink-900/50 hover:bg-ink-900/70 transition-colors relative overflow-hidden"
+        className="p-4 sm:p-5 rounded-2xl border border-ink-700/30 bg-ink-900/50 hover:bg-ink-900/70 transition-colors relative overflow-hidden"
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
       >
@@ -609,24 +609,24 @@ export function LessonPage() {
         animate={{ y: 0, opacity: 1 }}
         className="sticky top-0 z-40 backdrop-blur-xl bg-ink-950/80 border-b border-ink-800/50"
       >
-        <div className="max-w-3xl mx-auto px-6 h-14 flex items-center justify-between">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between gap-2">
           <motion.button
             onClick={() => navigate("/dashboard")}
-            className="text-sm text-ink-400 hover:text-white transition-colors flex items-center gap-1.5"
+            className="text-sm text-ink-400 hover:text-white transition-colors flex items-center gap-1 shrink-0 min-h-[44px] min-w-[44px] justify-center"
             whileTap={{ scale: 0.95 }}
           >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
               <path d="M19 12H5M12 5l-7 7 7 7" />
             </svg>
-            {t.lesson.back}
+            <span className="hidden sm:inline">{t.lesson.back}</span>
           </motion.button>
 
           {/* Step progress */}
-          <div className="flex gap-1">
+          <div className="flex gap-0.5 sm:gap-1 flex-1 max-w-[200px] sm:max-w-none mx-2">
             {lesson.steps.map((_, i) => (
               <div
                 key={i}
-                className={`w-6 h-1 rounded-full transition-colors ${
+                className={`flex-1 h-1 sm:h-1.5 rounded-full transition-colors ${
                   i < currentStep
                     ? "bg-jade-500"
                     : i === currentStep
@@ -637,9 +637,9 @@ export function LessonPage() {
             ))}
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 shrink-0">
             <LanguageSwitcher />
-            <div className="flex items-center gap-1.5">
+            <div className="hidden sm:flex items-center gap-1.5">
               <SparkleIcon size={14} className="text-imperial-400" />
               <span className="text-xs text-ink-400">+{lesson.xpReward} XP</span>
             </div>
@@ -648,7 +648,7 @@ export function LessonPage() {
       </motion.header>
 
       {/* Content */}
-      <main className="max-w-3xl mx-auto px-6 py-8">
+      <main className="max-w-3xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
         {/* Step title */}
         <AnimatePresence mode="wait">
           <motion.div
@@ -686,14 +686,14 @@ export function LessonPage() {
             {currentStep > 0 ? (
               <motion.button
                 onClick={() => setCurrentStep((s) => s - 1)}
-                className="px-6 py-3.5 rounded-xl font-medium flex items-center gap-2 border border-ink-700/40 text-ink-300 hover:text-white hover:border-ink-600 transition-colors"
+                className="px-4 sm:px-6 py-3 sm:py-3.5 rounded-xl font-medium flex items-center gap-2 border border-ink-700/40 text-ink-300 hover:text-white hover:border-ink-600 transition-colors min-h-[48px]"
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
               >
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
                   <path d="M19 12H5M12 5l-7 7 7 7" />
                 </svg>
-                {t.lesson.back}
+                <span className="hidden sm:inline">{t.lesson.back}</span>
               </motion.button>
             ) : (
               <div />
@@ -702,7 +702,7 @@ export function LessonPage() {
             {/* Next / Complete button */}
             <motion.button
               onClick={handleNext}
-              className={`px-8 py-3.5 rounded-xl font-semibold flex items-center gap-2 ${
+              className={`px-5 sm:px-8 py-3 sm:py-3.5 rounded-xl font-semibold flex items-center gap-2 min-h-[48px] ${
                 isLastStep
                   ? "bg-gradient-to-r from-jade-600 to-jade-500 text-white"
                   : "bg-gradient-to-r from-cinnabar-600 to-cinnabar-500 text-white"

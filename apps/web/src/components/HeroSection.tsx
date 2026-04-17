@@ -35,12 +35,12 @@ export function HeroSection() {
           <span className="text-xs font-medium text-imperial-300 tracking-wide">{t.hero.badge}</span>
         </motion.div>
 
-        <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }} className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.1] mb-6">
+        <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }} className="text-3xl sm:text-5xl lg:text-7xl font-bold tracking-tight leading-[1.1] mb-6">
           <span className="text-white">{t.hero.title1}</span><br />
           <span className="bg-gradient-to-r from-cinnabar-400 via-imperial-400 to-imperial-300 bg-clip-text text-transparent">{t.hero.title2}</span>
         </motion.h1>
 
-        <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.5 }} className="text-lg sm:text-xl text-ink-300 max-w-2xl mx-auto mb-10 leading-relaxed">
+        <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.5 }} className="text-base sm:text-lg lg:text-xl text-ink-300 max-w-2xl mx-auto mb-8 sm:mb-10 leading-relaxed px-2">
           {t.hero.subtitle}{" "}<span className="font-chinese text-cinnabar-400">你好</span>{" "}{t.hero.subtitleEnd}
         </motion.p>
 
@@ -59,7 +59,7 @@ export function HeroSection() {
           </motion.a>
         </motion.div>
 
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.2, duration: 1 }} className="mt-16 flex flex-wrap items-center justify-center gap-8 sm:gap-14">
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.2, duration: 1 }} className="mt-10 sm:mt-16 flex flex-wrap items-center justify-center gap-6 sm:gap-14">
           {[
             { value: "5,400+", label: t.hero.statWords },
             { value: "3", label: t.hero.statLevels },

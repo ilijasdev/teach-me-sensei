@@ -13,7 +13,7 @@ export function Footer() {
             <LogoIcon size={24} />
             <span className="text-sm font-bold bg-gradient-to-r from-cinnabar-500 to-imperial-400 bg-clip-text text-transparent">Kina</span>
           </motion.a>
-          <div className="flex items-center gap-6">
+          <div className="flex items-center flex-wrap justify-center gap-4 sm:gap-6">
             {[
               { label: t.nav.features, href: "#features" },
               { label: t.nav.levels, href: "#levels" },

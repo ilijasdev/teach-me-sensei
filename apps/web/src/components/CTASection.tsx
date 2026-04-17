@@ -19,8 +19,8 @@ export function CTASection() {
           {["学", "习", "中", "文"].map((char, i) => (
             <motion.span key={i} className="absolute font-chinese text-white/5 text-6xl select-none pointer-events-none" style={{ right: `${10 + i * 20}%`, top: `${15 + i * 18}%` }} animate={{ y: [0, -10, 0], rotate: [0, i % 2 ? 3 : -3, 0] }} transition={{ duration: 3 + i * 0.5, repeat: Infinity, ease: "easeInOut" }}>{char}</motion.span>
           ))}
-          <div className="relative p-8 sm:p-12 lg:p-16 text-center">
-            <motion.h2 initial={{ opacity: 0, y: 20 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ delay: 0.2, duration: 0.6 }} className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight">
+          <div className="relative p-6 sm:p-12 lg:p-16 text-center">
+            <motion.h2 initial={{ opacity: 0, y: 20 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ delay: 0.2, duration: 0.6 }} className="text-2xl sm:text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight">
               {t.cta.title1}<br /><span className="bg-gradient-to-r from-imperial-300 to-imperial-400 bg-clip-text text-transparent">{t.cta.title2}</span>
             </motion.h2>
             <motion.p initial={{ opacity: 0, y: 20 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ delay: 0.35, duration: 0.6 }} className="text-ink-300 max-w-lg mx-auto mb-8 text-lg">{t.cta.subtitle}</motion.p>

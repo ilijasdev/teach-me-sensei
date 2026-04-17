@@ -57,7 +57,7 @@ function LevelCard({ level, lt, index }: {
   return (
     <motion.div ref={ref} initial={{ opacity: 0, y: 50 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.7, delay: index * 0.15, ease: [0.22, 1, 0.36, 1] }} className={`relative rounded-2xl border ${colors.border} bg-ink-900/40 backdrop-blur-sm overflow-hidden transition-all duration-500 hover:shadow-2xl ${colors.glow}`}>
       <div className={`h-1 bg-gradient-to-r ${colors.bar}`} />
-      <div className="p-6 sm:p-8">
+      <div className="p-4 sm:p-6 lg:p-8">
         <div className="flex items-start justify-between mb-4">
           <div>
             <div className="flex items-center gap-3 mb-2">
@@ -75,15 +75,15 @@ function LevelCard({ level, lt, index }: {
           <FlameIcon size={28} className={`${colors.number} opacity-40`} />
         </div>
         <p className="text-sm text-ink-300 leading-relaxed mb-5">{lt.desc}</p>
-        <div className="grid grid-cols-3 gap-3 mb-5">
+        <div className="grid grid-cols-3 gap-2 sm:gap-3 mb-5">
           {[
             { label: t.levels.words, value: level.words },
             { label: t.levels.characters, value: level.chars },
             { label: t.levels.duration, value: lt.time },
           ].map((stat) => (
-            <div key={stat.label} className="text-center py-2.5 rounded-xl bg-ink-800/60 border border-ink-700/30">
-              <div className="text-sm font-semibold text-white">{stat.value}</div>
-              <div className="text-[10px] text-ink-400 uppercase tracking-wider mt-0.5">{stat.label}</div>
+            <div key={stat.label} className="text-center py-2 sm:py-2.5 rounded-xl bg-ink-800/60 border border-ink-700/30 px-1">
+              <div className="text-xs sm:text-sm font-semibold text-white leading-tight">{stat.value}</div>
+              <div className="text-[9px] sm:text-[10px] text-ink-400 uppercase tracking-wider mt-0.5">{stat.label}</div>
             </div>
           ))}
         </div>

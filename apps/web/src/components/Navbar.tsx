@@ -23,7 +23,7 @@ export function Navbar() {
       transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
       className="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl bg-ink-950/70 border-b border-white/5"
     >
-      <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 h-14 sm:h-16 flex items-center justify-between">
         <motion.a
           href="/"
           className="flex items-center gap-2.5 group"
@@ -72,12 +72,13 @@ export function Navbar() {
           </Link>
         </div>
 
-        <div className="md:hidden flex items-center gap-2">
+        <div className="md:hidden flex items-center gap-1">
           <LanguageSwitcher />
           <motion.button
-            className="w-10 h-10 flex flex-col items-center justify-center gap-1.5"
+            className="w-11 h-11 flex flex-col items-center justify-center gap-1.5 rounded-lg hover:bg-ink-800/50 transition-colors"
             onClick={() => setMobileOpen(!mobileOpen)}
             whileTap={{ scale: 0.9 }}
+            aria-label="Menu"
           >
             <motion.span
               className="w-5 h-0.5 bg-white block"

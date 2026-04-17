@@ -33,15 +33,15 @@ function StatCard({
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay, duration: 0.5 }}
-      className="p-5 rounded-2xl border border-ink-700/30 bg-ink-900/50"
+      className="p-3.5 sm:p-5 rounded-2xl border border-ink-700/30 bg-ink-900/50"
     >
-      <div className="flex items-center gap-3 mb-2">
-        <div className={`w-9 h-9 rounded-lg ${color} flex items-center justify-center`}>
-          <Icon size={18} className="text-white" />
+      <div className="flex items-center gap-2 sm:gap-3 mb-1.5 sm:mb-2">
+        <div className={`w-8 h-8 sm:w-9 sm:h-9 rounded-lg ${color} flex items-center justify-center shrink-0`}>
+          <Icon size={16} className="text-white" />
         </div>
-        <span className="text-xs text-ink-400 uppercase tracking-wider">{label}</span>
+        <span className="text-[10px] sm:text-xs text-ink-400 uppercase tracking-wider leading-tight">{label}</span>
       </div>
-      <div className="text-2xl font-bold text-white">{value}</div>
+      <div className="text-xl sm:text-2xl font-bold text-white">{value}</div>
     </motion.div>
   );
 }
@@ -73,30 +73,31 @@ export function DashboardPage() {
         transition={{ duration: 0.6 }}
         className="sticky top-0 z-40 backdrop-blur-xl bg-ink-950/80 border-b border-ink-800/50"
       >
-        <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 sm:h-16 flex items-center justify-between">
           <motion.a
             href="/"
-            className="flex items-center gap-2.5"
+            className="flex items-center gap-2 shrink-0"
             whileHover={{ scale: 1.03 }}
           >
-            <LogoIcon size={26} />
-            <span className="text-lg font-bold bg-gradient-to-r from-cinnabar-500 to-imperial-400 bg-clip-text text-transparent">
+            <LogoIcon size={24} />
+            <span className="text-base sm:text-lg font-bold bg-gradient-to-r from-cinnabar-500 to-imperial-400 bg-clip-text text-transparent">
               Kina
             </span>
           </motion.a>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 sm:gap-4">
             {dueCards.length > 0 && (
               <motion.button
                 onClick={() => navigate("/review")}
-                className="flex items-center gap-2 px-4 py-2 rounded-xl bg-imperial-500/10 border border-imperial-500/20 text-imperial-400 text-sm font-medium"
+                className="flex items-center gap-1.5 px-3 sm:px-4 py-2 rounded-xl bg-imperial-500/10 border border-imperial-500/20 text-imperial-400 text-xs sm:text-sm font-medium min-h-[40px]"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 animate={{ scale: [1, 1.05, 1] }}
                 transition={{ duration: 2, repeat: Infinity }}
               >
                 <BookOpenIcon size={16} />
-                {dueCards.length} {t.dash.cardsDue}
+                <span className="hidden sm:inline">{dueCards.length} {t.dash.cardsDue}</span>
+                <span className="sm:hidden">{dueCards.length}</span>
               </motion.button>
             )}
             <div className="flex items-center gap-2 text-sm text-ink-300">
@@ -108,7 +109,7 @@ export function DashboardPage() {
             <LanguageSwitcher />
             <motion.button
               onClick={logout}
-              className="text-xs text-ink-500 hover:text-ink-300 transition-colors"
+              className="text-xs text-ink-500 hover:text-ink-300 transition-colors min-h-[40px] flex items-center"
               whileTap={{ scale: 0.95 }}
             >
               {t.dash.logout}
@@ -117,7 +118,7 @@ export function DashboardPage() {
         </div>
       </motion.header>
 
-      <main className="max-w-6xl mx-auto px-6 py-8">
+      <main className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
         {/* Welcome */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -132,7 +133,7 @@ export function DashboardPage() {
         </motion.div>
 
         {/* Stats grid */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-8 sm:mb-10">
           <StatCard label={t.dash.xp} value={progress.xp} icon={SparkleIcon} color="bg-imperial-600" delay={0.1} />
           <StatCard label={t.dash.streak} value={`${progress.streak} ${t.dash.day}`} icon={FlameIcon} color="bg-cinnabar-600" delay={0.15} />
           <StatCard label={t.dash.words} value={progress.wordsLearned.length} icon={BookOpenIcon} color="bg-jade-600" delay={0.2} />
@@ -200,7 +201,7 @@ export function DashboardPage() {
                     transition={{ delay: 0.5 + mi * 0.1 + li * 0.05 }}
                     onClick={() => !isLocked && navigate(`/lesson/${lesson.id}`)}
                     disabled={isLocked}
-                    className={`w-full p-4 rounded-xl border text-left flex items-center gap-4 transition-all duration-300 group ${
+                    className={`w-full p-3 sm:p-4 rounded-xl border text-left flex items-center gap-3 sm:gap-4 transition-all duration-300 group min-h-[64px] ${
                       isCompleted
                         ? "border-jade-500/20 bg-jade-500/5 hover:bg-jade-500/10"
                         : isCurrent
