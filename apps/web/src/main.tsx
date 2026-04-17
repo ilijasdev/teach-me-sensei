@@ -75,7 +75,7 @@ function AppRoutes() {
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename="/teach-me-sensei">
       <I18nProvider>
         <AuthProvider>
           <ProgressProvider>
